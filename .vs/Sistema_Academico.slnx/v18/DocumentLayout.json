@@ -1,0 +1,275 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|c:\\users\\wilalejo10\\desktop\\prog web\\sistema_academico\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|c:\\users\\wilalejo10\\desktop\\prog web\\sistema_academico\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|c:\\users\\wilalejo10\\desktop\\prog web\\sistema_academico\\models\\dashboardviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|solutionrelative:models\\dashboardviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|c:\\users\\wilalejo10\\desktop\\prog web\\sistema_academico\\models\\graficodatapoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|solutionrelative:models\\graficodatapoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|c:\\users\\wilalejo10\\desktop\\prog web\\sistema_academico\\models\\graficoviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|solutionrelative:models\\graficoviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|c:\\users\\wilalejo10\\desktop\\prog web\\sistema_academico\\models\\reportenotasviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|solutionrelative:models\\reportenotasviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|c:\\users\\wilalejo10\\desktop\\prog web\\sistema_academico\\models\\registronotaviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|solutionrelative:models\\registronotaviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|c:\\users\\wilalejo10\\desktop\\prog web\\sistema_academico\\models\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|solutionrelative:models\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|c:\\users\\wilalejo10\\desktop\\prog web\\sistema_academico\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|solutionrelative:models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|c:\\users\\wilalejo10\\desktop\\prog web\\sistema_academico\\models\\docente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|solutionrelative:models\\docente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|c:\\users\\wilalejo10\\desktop\\prog web\\sistema_academico\\models\\estudiante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|solutionrelative:models\\estudiante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|c:\\users\\wilalejo10\\desktop\\prog web\\sistema_academico\\models\\materia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|solutionrelative:models\\materia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|c:\\users\\wilalejo10\\desktop\\prog web\\sistema_academico\\models\\nota.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|solutionrelative:models\\nota.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|c:\\users\\wilalejo10\\desktop\\prog web\\sistema_academico\\models\\movimientonota.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|solutionrelative:models\\movimientonota.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|c:\\users\\wilalejo10\\desktop\\prog web\\sistema_academico\\models\\aplicaciondbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9C53FA1-213F-46F6-803F-650356ED268E}|Sistema_Academico.csproj|solutionrelative:models\\aplicaciondbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-26T23:33:05.512Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T23:28:43.011Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DashboardViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\DashboardViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\DashboardViewModel.cs",
+              "ToolTip": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\DashboardViewModel.cs",
+              "RelativeToolTip": "Models\\DashboardViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T23:27:58.182Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GraficoDataPoint.cs",
+              "DocumentMoniker": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\GraficoDataPoint.cs",
+              "RelativeDocumentMoniker": "Models\\GraficoDataPoint.cs",
+              "ToolTip": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\GraficoDataPoint.cs",
+              "RelativeToolTip": "Models\\GraficoDataPoint.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T23:27:22.46Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GraficoViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\GraficoViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\GraficoViewModel.cs",
+              "ToolTip": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\GraficoViewModel.cs",
+              "RelativeToolTip": "Models\\GraficoViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T23:26:36.54Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ReporteNotasViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\ReporteNotasViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\ReporteNotasViewModel.cs",
+              "ToolTip": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\ReporteNotasViewModel.cs",
+              "RelativeToolTip": "Models\\ReporteNotasViewModel.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAxwAsAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T23:25:59.915Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "RegistroNotaViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\RegistroNotaViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\RegistroNotaViewModel.cs",
+              "ToolTip": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\RegistroNotaViewModel.cs",
+              "RelativeToolTip": "Models\\RegistroNotaViewModel.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAmwBYAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T23:25:33.261Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "LoginViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\LoginViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\LoginViewModel.cs",
+              "ToolTip": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\LoginViewModel.cs",
+              "RelativeToolTip": "Models\\LoginViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T23:24:30.584Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "MovimientoNota.cs",
+              "DocumentMoniker": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\MovimientoNota.cs",
+              "RelativeDocumentMoniker": "Models\\MovimientoNota.cs",
+              "ToolTip": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\MovimientoNota.cs",
+              "RelativeToolTip": "Models\\MovimientoNota.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADEAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T23:23:20.289Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Nota.cs",
+              "DocumentMoniker": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\Nota.cs",
+              "RelativeDocumentMoniker": "Models\\Nota.cs",
+              "ToolTip": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\Nota.cs",
+              "RelativeToolTip": "Models\\Nota.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T23:22:30.276Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Materia.cs",
+              "DocumentMoniker": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\Materia.cs",
+              "RelativeDocumentMoniker": "Models\\Materia.cs",
+              "ToolTip": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\Materia.cs",
+              "RelativeToolTip": "Models\\Materia.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAABQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T23:21:51.942Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Estudiante.cs",
+              "DocumentMoniker": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\Estudiante.cs",
+              "RelativeDocumentMoniker": "Models\\Estudiante.cs",
+              "ToolTip": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\Estudiante.cs",
+              "RelativeToolTip": "Models\\Estudiante.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T23:20:50.411Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Docente.cs",
+              "DocumentMoniker": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\Docente.cs",
+              "RelativeDocumentMoniker": "Models\\Docente.cs",
+              "ToolTip": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\Docente.cs",
+              "RelativeToolTip": "Models\\Docente.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T23:20:11.006Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Usuario.cs",
+              "DocumentMoniker": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\Usuario.cs",
+              "RelativeDocumentMoniker": "Models\\Usuario.cs",
+              "ToolTip": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\Usuario.cs",
+              "RelativeToolTip": "Models\\Usuario.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T23:19:14.963Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AplicacionDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\AplicacionDbContext.cs",
+              "RelativeDocumentMoniker": "Models\\AplicacionDbContext.cs",
+              "ToolTip": "C:\\Users\\Wilalejo10\\Desktop\\Prog web\\Sistema_Academico\\Models\\AplicacionDbContext.cs",
+              "RelativeToolTip": "Models\\AplicacionDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T22:51:45.045Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

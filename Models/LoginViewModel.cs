@@ -1,0 +1,16 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Sistema_Academico.Models
+{
+    public class LoginViewModel
+    {
+        [Required(ErrorMessage = "El usuario es obligatorio")]
+        [Display(Name = "Usuario")]
+        public string NombreUsuario { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "La contraseña es obligatoria")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Contraseña")]
+        public string Contrasena { get; set; } = string.Empty;
+    }
+}
