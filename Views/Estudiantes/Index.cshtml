@@ -1,0 +1,95 @@
+﻿@model IEnumerable<Sistema_Academico.Models.Estudiante>
+@{
+    ViewData["Title"] = "Estudiantes";
+    bool puedeEditar = Context.Session.GetString("UsuarioRol") != "Estudiante";
+}
+
+<div class="d-flex justify-content-end mb-3">
+    @if (puedeEditar)
+    {
+        <a asp-action="Crear" class="btn btn-primary">
+            <i class="bi bi-plus-lg me-1"></i>Nuevo Estudiante
+        </a>
+    }
+</div>
+
+<div class="card mb-3">
+    <div class="card-body py-2">
+        <form method="get" class="row g-2 align-items-end">
+            <div class="col-md-6">
+                <label class="form-label mb-1">Buscar</label>
+                <input name="buscar" value="@ViewBag.Buscar"
+                       class="form-control" placeholder="Nombre, apellido o código…" />
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-search me-1"></i>Buscar
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary ms-1">Limpiar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">@Model.Count() estudiantes encontrados</div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Semestre</th>
+                        <th>Notas</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var e in Model)
+                    {
+                        <tr>
+                            <td class="text-muted">@e.Id</td>
+                            <td><code>@e.Codigo</code></td>
+                            <td class="fw-semibold">@e.NombreCompleto</td>
+                            <td class="text-muted">@e.Correo</td>
+                            <td>@(e.Semestre.HasValue ? e.Semestre.ToString() : "–")</td>
+                            <td>
+                                <span class="badge bg-primary bg-opacity-10 text-primary">
+                                    @e.Notas.Count
+                                </span>
+                            </td>
+                            <td>
+                                <a asp-action="Detalle" asp-route-id="@e.Id"
+                                   class="btn btn-sm btn-outline-secondary me-1">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                @if (puedeEditar)
+                                {
+                                    <a asp-action="Editar" asp-route-id="@e.Id"
+                                       class="btn btn-sm btn-outline-primary me-1">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-action="Eliminar" asp-route-id="@e.Id"
+                                       class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center text-muted py-4">
+                                No se encontraron estudiantes.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
