@@ -22,9 +22,7 @@ namespace Sistema_Academico.Controllers
         }
         private string UsuarioActual() => HttpContext.Session.GetString("UsuarioNombre") ?? "Sistema";
 
-        // ═══════════════════════════════════════════════════════════
         //  CRUD REGISTRO_NOTAS
-        // ═══════════════════════════════════════════════════════════
 
         // GET: Notas
         public async Task<IActionResult> Index(string? buscarEstudiante, int? materiaId, string? periodo)
@@ -68,14 +66,13 @@ namespace Sistema_Academico.Controllers
 
             return View(await query.OrderByDescending(n => n.FechaRegistro).ToListAsync());
         }
-
-        // ── REGISTRAR (formulario especial con auditoría) ──────────
         // GET: Notas/Registrar
         public async Task<IActionResult> Registrar()
         {
             if (!EsAdminOProfesor()) return RedirectToAction("Index", "Home");
-            await CargarSelectListsAsync();
-            return View(new RegistroNotaViewModel());
+            var vm = new RegistroNotaViewModel();
+            await CargarSelectListsAsync(vm);
+            return View(vm);
         }
 
         // POST: Notas/Registrar
@@ -137,7 +134,7 @@ namespace Sistema_Academico.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ── CREAR (CRUD estándar) ──────────────────────────────────
+        // CREAR
         public async Task<IActionResult> Crear()
         {
             if (!EsAdminOProfesor()) return RedirectToAction("Index", "Home");
@@ -228,7 +225,7 @@ namespace Sistema_Academico.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ── ELIMINAR (formulario especial con auditoría) ───────────
+        // ── ELIMINAR
         // GET: Notas/EliminarNota
         public async Task<IActionResult> EliminarNota(int? estudianteId, int? materiaId, string? periodo)
         {
@@ -320,9 +317,7 @@ namespace Sistema_Academico.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ═══════════════════════════════════════════════════════════
         //  MOVIMIENTO_NOTAS (solo lectura/consulta)
-        // ═══════════════════════════════════════════════════════════
         public async Task<IActionResult> MovimientoNotas(string? tipo, int? estudianteId, int? materiaId, DateTime? desde, DateTime? hasta)
         {
             if (!EstaAutenticado()) return RedirectToAction("Login", "Account");
@@ -349,9 +344,7 @@ namespace Sistema_Academico.Controllers
             return View(await query.OrderByDescending(m => m.FechaMovimiento).ToListAsync());
         }
 
-        // ═══════════════════════════════════════════════════════════
         //  INFORMES POR PARÁMETROS
-        // ═══════════════════════════════════════════════════════════
         public async Task<IActionResult> Informes(string? estudianteId, int? materiaId, string? periodo, decimal? notaMin, decimal? notaMax)
         {
             if (!EstaAutenticado()) return RedirectToAction("Login", "Account");
@@ -405,9 +398,7 @@ namespace Sistema_Academico.Controllers
             return View(vm);
         }
 
-        // ═══════════════════════════════════════════════════════════
         //  GRÁFICOS POR PARÁMETROS
-        // ═══════════════════════════════════════════════════════════
         public async Task<IActionResult> Graficos(int? materiaId, string? periodo, string? agrupacion)
         {
             if (!EstaAutenticado()) return RedirectToAction("Login", "Account");
@@ -454,10 +445,23 @@ namespace Sistema_Academico.Controllers
         // ── Helpers ────────────────────────────────────────────────
         private async Task CargarSelectListsAsync(RegistroNotaViewModel? vm = null, int? estId = null, int? matId = null)
         {
-            var estudiantes = await _context.Estudiantes.OrderBy(e => e.Apellido).ThenBy(e => e.Nombre).ToListAsync();
-            var materias = await _context.Materias.Include(m => m.Docente).OrderBy(m => m.Nombre).ToListAsync();
-            ViewBag.EstudianteId = new SelectList(estudiantes, "Id", "NombreCompleto", vm?.EstudianteId ?? estId);
-            ViewBag.MateriaId = new SelectList(materias, "Id", "Nombre", vm?.MateriaId ?? matId);
+            var estudiantes = await _context.Estudiantes
+                .OrderBy(e => e.Apellido)
+                .ThenBy(e => e.Nombre)
+                .ToListAsync();
+
+            var materias = await _context.Materias
+                .Include(m => m.Docente)
+                .OrderBy(m => m.Nombre)
+                .ToListAsync();
+
+            // Para las vistas Crear/Editar (usan ViewBag con SelectList)
+            ViewBag.EstudianteId = new SelectList(
+                estudiantes, "Id", "NombreCompleto", vm?.EstudianteId ?? estId);
+            ViewBag.MateriaId = new SelectList(
+                materias, "Id", "Nombre", vm?.MateriaId ?? matId);
+
+            // Para la vista Registrar (usa Model.Estudiantes y Model.Materias directamente)
             if (vm != null)
             {
                 vm.Estudiantes = estudiantes;
