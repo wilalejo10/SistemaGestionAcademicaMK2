@@ -1,0 +1,43 @@
+﻿@model Sistema_Academico.Models.Nota
+@{
+    ViewData["Title"] = "Eliminar Nota";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-5">
+        <div class="card border-danger">
+            <div class="card-header text-danger">
+                <i class="bi bi-exclamation-triangle me-2"></i>Confirmar Eliminación
+            </div>
+            <div class="card-body p-4">
+                <p>¿Eliminar la nota de <strong>@Model.Estudiante?.NombreCompleto</strong>?</p>
+                <dl class="row small mb-3">
+                    <dt class="col-5">Materia</dt>
+                    <dd class="col-7">@Model.Materia?.Nombre</dd>
+                    <dt class="col-5">Período</dt>
+                    <dd class="col-7">@Model.Periodo</dd>
+                    <dt class="col-5">Nota</dt>
+                    <dd class="col-7">
+                        <strong class="@(Model.Valor >= 3 ? "text-success" : "text-danger")">
+                            @Model.Valor.ToString("F2")
+                        </strong>
+                    </dd>
+                </dl>
+                <div class="alert alert-warning py-2 small">
+                    <i class="bi bi-info-circle me-1"></i>
+                    Se registrará un movimiento de auditoría de eliminación.
+                </div>
+                <form asp-action="Eliminar" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="Id" />
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash me-1"></i>Eliminar
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

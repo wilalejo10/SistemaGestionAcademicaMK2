@@ -1,0 +1,46 @@
+﻿@model Sistema_Academico.Models.Materia
+@{
+    ViewData["Title"] = "Detalle Materia";
+}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card mb-3">
+            <div class="card-header"><i class="bi bi-book me-2 text-primary"></i>@Model.Nombre</div>
+            <div class="card-body p-4">
+                <dl class="row">
+                    <dt class="col-4">Código</dt>
+                    <dd class="col-8"><code>@Model.Codigo</code></dd>
+                    <dt class="col-4">Créditos</dt>
+                    <dd class="col-8">@Model.Creditos</dd>
+                    <dt class="col-4">Docente</dt>
+                    <dd class="col-8">@Model.Docente?.NombreCompleto</dd>
+                </dl>
+            </div>
+        </div>
+        @if (Model.Notas.Any())
+        {
+            <div class="card">
+                <div class="card-header">Notas registradas (@Model.Notas.Count)</div>
+                <div class="card-body p-0">
+                    <table class="table mb-0">
+                        <thead><tr><th>Estudiante</th><th>Período</th><th>Nota</th></tr></thead>
+                        <tbody>
+                            @foreach (var n in Model.Notas)
+                            {
+                                string cls = n.Valor >= 4 ? "badge-nota-alta" : n.Valor >= 3 ? "badge-nota-media" : "badge-nota-baja";
+                                <tr>
+                                    <td>@n.Estudiante?.NombreCompleto</td>
+                                    <td>@n.Periodo</td>
+                                    <td><span class="nota-badge @cls">@n.Valor.ToString("F2")</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+        <div class="mt-3">
+            <a asp-action="Index" class="btn btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Volver</a>
+        </div>
+    </div>
+</div>

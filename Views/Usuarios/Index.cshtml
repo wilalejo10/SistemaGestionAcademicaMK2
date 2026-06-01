@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Sistema_Academico.Models.Usuario>
+@{ ViewData["Title"] = "Usuarios"; bool esAdmin = Context.Session.GetString("UsuarioRol") == "Admin"; }
+
+<div class="d-flex justify-content-end mb-3">
+    @if (esAdmin) { <a asp-action="Crear" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i>Nuevo Usuario</a> }
+</div>
+
+<div class="card mb-3">
+    <div class="card-body py-2">
+        <form method="get" class="row g-2 align-items-end">
+            <div class="col-md-5">
+                <label class="form-label mb-1">Buscar</label>
+                <input name="buscar" value="@ViewBag.Buscar" class="form-control" placeholder="Usuario o correo…"/>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label mb-1">Rol</label>
+                <select name="rol" class="form-select">
+                    <option value="">Todos</option>
+                    <option value="Admin" selected="@(ViewBag.Rol == "Admin" ? "selected" : null)">Admin</option>
+                    <option value="Profesor" selected="@(ViewBag.Rol == "Profesor" ? "selected" : null)">Profesor</option>
+                    <option value="Estudiante" selected="@(ViewBag.Rol == "Estudiante" ? "selected" : null)">Estudiante</option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary"><i class="bi bi-search me-1"></i>Buscar</button>
+                <a asp-action="Index" class="btn btn-outline-secondary ms-1">Limpiar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">@Model.Count() usuarios encontrados</div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table mb-0">
+                <thead>
+                    <tr><th>#</th><th>Usuario</th><th>Correo</th><th>Rol</th><th>Estado</th><th>Acciones</th></tr>
+                </thead>
+                <tbody>
+                @foreach (var u in Model)
+                {
+                    <tr>
+                        <td class="text-muted">@u.Id</td>
+                        <td class="fw-semibold">@u.NombreUsuario</td>
+                        <td>@u.Correo</td>
+                        <td><span class="badge-rol badge-@u.Rol.ToLower()">@u.Rol</span></td>
+                        <td>
+                            @if (u.Activo) { <span class="badge bg-success bg-opacity-10 text-success">Activo</span> }
+                            else { <span class="badge bg-danger bg-opacity-10 text-danger">Inactivo</span> }
+                        </td>
+                        <td>
+                            @if (esAdmin)
+                            {
+                                <a asp-action="Editar" asp-route-id="@u.Id" class="btn btn-sm btn-outline-primary me-1"><i class="bi bi-pencil"></i></a>
+                                <a asp-action="Eliminar" asp-route-id="@u.Id" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                            }
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr><td colspan="6" class="text-center text-muted py-4">No se encontraron usuarios.</td></tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

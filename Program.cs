@@ -44,6 +44,21 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AplicacionDbContext>();
     db.Database.EnsureCreated();
+
+    // Crear admin por defecto si no existe
+    if (!db.Usuarios.Any())
+    {
+        db.Usuarios.Add(new Sistema_Academico.Models.Usuario
+        {
+            NombreUsuario = "admin",
+            Correo = "admin@sistema.edu",
+            Contrasena = "Admin123",
+            Rol = "Admin",
+            Activo = true,
+            FechaCreacion = DateTime.Now
+        });
+        db.SaveChanges();
+    }
 }
 
 app.Run();

@@ -1,50 +1,225 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Sistema_Academico</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Sistema_Academico.styles.css" asp-append-version="true" />
+    <title>@ViewData["Title"] – Sistema Académico</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+            :root {
+                --primary: #1a56db;
+                --primary-dark: #1342b5;
+                --sidebar-w: 260px;
+                --sidebar-bg: #0f172a;
+                --sidebar-text: #94a3b8;
+                --radius: 12px;
+            }
+            * { box-sizing: border-box; }
+            body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f1f5f9; color: #1e293b; margin: 0; }
+
+            /* SIDEBAR */
+            #sidebar {
+                position: fixed; top: 0; left: 0; height: 100vh;
+                width: var(--sidebar-w); background: var(--sidebar-bg);
+                display: flex; flex-direction: column; z-index: 1000;
+            }
+            .sidebar-brand {
+                padding: 20px 24px; border-bottom: 1px solid #1e293b;
+                display: flex; align-items: center; gap: 12px;
+            }
+            .sidebar-brand .icon-wrap {
+                width: 38px; height: 38px; background: var(--primary);
+                border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            }
+            .sidebar-brand span { color: #f8fafc; font-weight: 700; font-size: 15px; line-height: 1.3; }
+            .sidebar-section {
+                padding: 16px 12px 4px; color: #475569;
+                font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+            }
+            .sidebar-nav { flex: 1; overflow-y: auto; padding: 8px 12px; }
+            .sidebar-nav a {
+                display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+                border-radius: 8px; color: var(--sidebar-text); text-decoration: none;
+                font-size: 14px; font-weight: 500; transition: all .15s; margin-bottom: 2px;
+            }
+            .sidebar-nav a:hover { background: #1e293b; color: #f1f5f9; }
+            .sidebar-nav a.active { background: var(--primary); color: #fff; }
+            .sidebar-nav a i { width: 18px; text-align: center; font-size: 16px; }
+            .sidebar-footer { padding: 16px; border-top: 1px solid #1e293b; }
+            .user-avatar {
+                width: 36px; height: 36px; border-radius: 50%; background: var(--primary);
+                display: flex; align-items: center; justify-content: center;
+                color: #fff; font-weight: 700; font-size: 14px;
+            }
+            .user-name { color: #f1f5f9; font-size: 13px; font-weight: 600; }
+            .user-role { color: #64748b; font-size: 11px; }
+
+            /* MAIN */
+            #main { margin-left: var(--sidebar-w); min-height: 100vh; display: flex; flex-direction: column; }
+            .topbar {
+                height: 64px; background: #fff; border-bottom: 1px solid #e2e8f0;
+                display: flex; align-items: center; padding: 0 32px;
+                justify-content: space-between; position: sticky; top: 0; z-index: 100;
+            }
+            .page-title { font-size: 18px; font-weight: 700; color: #0f172a; }
+            .content-area { flex: 1; padding: 28px 32px; }
+
+            /* CARDS */
+            .card { border: none; border-radius: var(--radius); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+            .card-header { background: #fff; border-bottom: 1px solid #f1f5f9; padding: 18px 24px; font-weight: 600; border-radius: var(--radius) var(--radius) 0 0 !important; }
+
+            /* STAT CARDS */
+            .stat-card { border-radius: var(--radius); padding: 22px; color: #fff; position: relative; overflow: hidden; }
+            .stat-card .stat-icon { font-size: 40px; opacity: .2; position: absolute; right: 16px; top: 16px; }
+            .stat-card .stat-val { font-size: 32px; font-weight: 800; }
+            .stat-card .stat-lbl { font-size: 13px; opacity: .85; margin-top: 2px; }
+
+            /* TABLE */
+            .table { font-size: 14px; }
+            .table thead th {
+                background: #f8fafc; font-weight: 600; color: #475569;
+                border-bottom: 2px solid #e2e8f0; padding: 12px 16px;
+                font-size: 12px; text-transform: uppercase; letter-spacing: .04em;
+            }
+            .table tbody td { padding: 12px 16px; vertical-align: middle; border-color: #f1f5f9; }
+            .table tbody tr:hover { background: #f8fafc; }
+
+            /* BADGES */
+            .badge-rol { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+            .badge-admin { background: #fef3c7; color: #92400e; }
+            .badge-profesor { background: #dbeafe; color: #1e40af; }
+            .badge-estudiante { background: #dcfce7; color: #166534; }
+            .nota-badge { display: inline-block; min-width: 50px; text-align: center; padding: 4px 10px; border-radius: 20px; font-weight: 700; font-size: 13px; }
+            .badge-nota-alta { background: #dcfce7; color: #166534; }
+            .badge-nota-media { background: #fef3c7; color: #92400e; }
+            .badge-nota-baja { background: #fee2e2; color: #991b1b; }
+
+            /* FORMS */
+            .form-label { font-weight: 600; font-size: 13px; color: #374151; margin-bottom: 6px; }
+            .form-control, .form-select { border-radius: 8px; border: 1.5px solid #e2e8f0; font-size: 14px; padding: 9px 13px; }
+            .form-control:focus, .form-select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26,86,219,.12); }
+
+            /* BUTTONS */
+            .btn { border-radius: 8px; font-weight: 600; font-size: 14px; }
+            .btn-primary { background: var(--primary); border-color: var(--primary); }
+            .btn-primary:hover { background: var(--primary-dark); border-color: var(--primary-dark); }
+            .btn-sm { font-size: 13px; padding: 5px 12px; }
+            .alert { border: none; border-radius: 10px; font-size: 14px; }
+    </style>
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Sistema_Academico</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    @{
+        var rol = Context.Session.GetString("UsuarioRol") ?? "";
+        var nombre = Context.Session.GetString("UsuarioNombre") ?? "";
+        var ctrl = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+        var accion = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+        bool auth = !string.IsNullOrEmpty(rol);
+    }
+
+    @if (auth)
+    {
+        <nav id="sidebar">
+            <div class="sidebar-brand">
+                <div class="icon-wrap">
+                    <i class="bi bi-mortarboard-fill text-white" style="font-size:18px"></i>
+                </div>
+                <span>Sistema<br />Académico</span>
+            </div>
+
+            <div class="sidebar-nav">
+                <p class="sidebar-section">Principal</p>
+                <a href="@Url.Action("Index", "Home")" class="@(ctrl == "Home" ? "active" : "")">
+                    <i class="bi bi-grid-1x2"></i> Dashboard
+                </a>
+
+                <p class="sidebar-section">Gestión</p>
+                @if (rol == "Admin")
+                {
+                    <a href="@Url.Action("Index", "Usuarios")" class="@(ctrl == "Usuarios" ? "active" : "")">
+                        <i class="bi bi-people"></i> Usuarios
+                    </a>
+                }
+                <a href="@Url.Action("Index", "Docentes")" class="@(ctrl == "Docentes" ? "active" : "")">
+                    <i class="bi bi-person-workspace"></i> Docentes
+                </a>
+                <a href="@Url.Action("Index", "Materias")" class="@(ctrl == "Materias" ? "active" : "")">
+                    <i class="bi bi-book"></i> Materias
+                </a>
+
+                <p class="sidebar-section">Notas</p>
+                <a href="@Url.Action("Index", "Notas")" class="@(ctrl == "Notas" && accion == "Index" ? "active" : "")">
+                    <i class="bi bi-clipboard-data"></i> Registro_notas
+                </a>
+                @if (rol != "Estudiante")
+                {
+                    <a href="@Url.Action("Registrar", "Notas")" class="@(ctrl == "Notas" && accion == "Registrar" ? "active" : "")">
+                        <i class="bi bi-plus-circle"></i> Registrar
+                    </a>
+                    <a href="@Url.Action("EliminarNota", "Notas")" class="@(ctrl == "Notas" && accion == "EliminarNota" ? "active" : "")">
+                        <i class="bi bi-trash"></i> Eliminar_notas
+                    </a>
+                }
+                <a href="@Url.Action("MovimientoNotas", "Notas")" class="@(ctrl == "Notas" && accion == "MovimientoNotas" ? "active" : "")">
+                    <i class="bi bi-arrow-left-right"></i> Movimiento_notas
+                </a>
+
+                <p class="sidebar-section">Análisis</p>
+                <a href="@Url.Action("Informes", "Notas")" class="@(ctrl == "Notas" && accion == "Informes" ? "active" : "")">
+                    <i class="bi bi-file-earmark-bar-graph"></i> Informes por parámetros
+                </a>
+                <a href="@Url.Action("Graficos", "Notas")" class="@(ctrl == "Notas" && accion == "Graficos" ? "active" : "")">
+                    <i class="bi bi-bar-chart"></i> Gráficos por parámetros
+                </a>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="user-avatar">@(nombre.Length > 0 ? nombre[0].ToString().ToUpper() : "U")</div>
+                    <div class="flex-grow-1">
+                        <div class="user-name">@nombre</div>
+                        <div class="user-role">@rol</div>
+                    </div>
+                    <a href="@Url.Action("Logout", "Account")" style="color:#94a3b8" title="Cerrar sesión">
+                        <i class="bi bi-box-arrow-right fs-5"></i>
+                    </a>
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - Sistema_Academico - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div id="main">
+            <div class="topbar">
+                <div class="page-title">@(ViewData["Title"] ?? "Dashboard")</div>
+                <span class="badge-rol badge-@rol.ToLower()">@rol</span>
+            </div>
+            <div class="content-area">
+                @if (TempData["Exito"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show mb-3">
+                        <i class="bi bi-check-circle me-2"></i>@TempData["Exito"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                }
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show mb-3">
+                        <i class="bi bi-exclamation-triangle me-2"></i>@TempData["Error"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                }
+                @RenderBody()
+            </div>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    }
+    else
+    {
+        @RenderBody()
+    }
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -1,0 +1,43 @@
+﻿@model Sistema_Academico.Models.Docente
+@{
+    ViewData["Title"] = "Detalle Docente";
+}
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card mb-3">
+            <div class="card-header"><i class="bi bi-person-workspace me-2 text-primary"></i>@Model.NombreCompleto</div>
+            <div class="card-body p-4">
+                <dl class="row">
+                    <dt class="col-4">Correo</dt>
+                    <dd class="col-8">@Model.Correo</dd>
+                    <dt class="col-4">Especialidad</dt>
+                    <dd class="col-8">@Model.Especialidad</dd>
+                    <dt class="col-4">Teléfono</dt>
+                    <dd class="col-8">@Model.Telefono</dd>
+                    <dt class="col-4">Usuario</dt>
+                    <dd class="col-8">@Model.Usuario?.NombreUsuario</dd>
+                </dl>
+            </div>
+        </div>
+        @if (Model.Materias.Any())
+        {
+            <div class="card">
+                <div class="card-header">Materias asignadas</div>
+                <div class="card-body p-0">
+                    <table class="table mb-0">
+                        <thead><tr><th>Código</th><th>Materia</th><th>Créditos</th></tr></thead>
+                        <tbody>
+                            @foreach (var m in Model.Materias)
+                            {
+                                <tr><td>@m.Codigo</td><td>@m.Nombre</td><td>@m.Creditos</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+        <div class="mt-3">
+            <a asp-action="Index" class="btn btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Volver</a>
+        </div>
+    </div>
+</div>

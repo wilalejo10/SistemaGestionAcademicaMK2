@@ -1,0 +1,104 @@
+﻿@{
+    ViewData["Title"] = "Eliminar_notas";
+    var nota = ViewBag.Nota as Sistema_Academico.Models.Nota;
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-header text-danger">
+                <i class="bi bi-trash me-2"></i>Eliminar Nota – Búsqueda por parámetros
+            </div>
+            <div class="card-body p-4">
+
+                <!-- Formulario de búsqueda -->
+                <form method="get" class="row g-3 mb-4">
+                    <div class="col-md-4">
+                        <label class="form-label">Estudiante</label>
+                        <select name="estudianteId" class="form-select"
+                                asp-items="ViewBag.Estudiantes">
+                            <option value="">— Seleccione —</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Materia</label>
+                        <select name="materiaId" class="form-select"
+                                asp-items="ViewBag.Materias">
+                            <option value="">— Seleccione —</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Período</label>
+                        <select name="periodo" class="form-select">
+                            <option value="">— Seleccione —</option>
+                            @foreach (var p in (List<string>)(ViewBag.Periodos ?? new List<string>()))
+                            {
+                                <option value="@p"
+                                        selected="@(ViewBag.Periodo == p ? "selected" : null)">
+                                    @p
+                                </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-outline-primary">
+                            <i class="bi bi-search me-1"></i>Buscar Nota
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Resultado -->
+                @if (nota != null)
+                {
+                    <div class="alert alert-warning">
+                        <strong>Nota encontrada:</strong>
+                        <div class="row mt-2 small">
+                            <div class="col-6">
+                                <strong>Estudiante:</strong> @nota.Estudiante?.NombreCompleto
+                            </div>
+                            <div class="col-6">
+                                <strong>Código:</strong> @nota.Estudiante?.Codigo
+                            </div>
+                            <div class="col-6 mt-1">
+                                <strong>Materia:</strong> @nota.Materia?.Nombre
+                            </div>
+                            <div class="col-6 mt-1">
+                                <strong>Período:</strong> @nota.Periodo
+                            </div>
+                            <div class="col-6 mt-1">
+                                <strong>Nota:</strong>
+                                <span class="fw-bold fs-5 @(nota.Valor >= 3 ? "text-success" : "text-danger")">
+                                    @nota.Valor.ToString("F2")
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-danger py-2 small">
+                        <i class="bi bi-exclamation-triangle me-1"></i>
+                        Se registrará un movimiento de auditoría de eliminación.
+                    </div>
+
+                    <form asp-action="EliminarNota" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="estudianteId" value="@nota.EstudianteId" />
+                        <input type="hidden" name="materiaId" value="@nota.MateriaId" />
+                        <input type="hidden" name="periodo" value="@nota.Periodo" />
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash me-1"></i>Confirmar Eliminación
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                }
+                else if (Context.Request.Query.ContainsKey("estudianteId"))
+                {
+                    <div class="alert alert-info py-2 small">
+                        No se encontró ninguna nota con los parámetros indicados.
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

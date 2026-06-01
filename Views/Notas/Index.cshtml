@@ -1,0 +1,120 @@
+﻿@model IEnumerable<Sistema_Academico.Models.Nota>
+@{
+    ViewData["Title"] = "Registro_notas";
+    var rol = Context.Session.GetString("UsuarioRol") ?? "";
+    bool puedeEditar = rol == "Admin" || rol == "Profesor";
+}
+
+<div class="d-flex justify-content-end mb-3">
+    @if (puedeEditar)
+    {
+        <a asp-action="Registrar" class="btn btn-primary me-2">
+            <i class="bi bi-plus-circle me-1"></i>Registrar
+        </a>
+        <a asp-action="Crear" class="btn btn-outline-primary">
+            <i class="bi bi-plus me-1"></i>Crear
+        </a>
+    }
+</div>
+
+<div class="card mb-3">
+    <div class="card-body py-2">
+        <form method="get" class="row g-2 align-items-end">
+            <div class="col-md-3">
+                <label class="form-label mb-1">Estudiante</label>
+                <input name="buscarEstudiante" value="@ViewBag.BuscarEstudiante"
+                       class="form-control" placeholder="Nombre o código…" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label mb-1">Materia</label>
+                <select name="materiaId" class="form-select" asp-items="ViewBag.Materias">
+                    <option value="">Todas</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label mb-1">Período</label>
+                <select name="periodo" class="form-select">
+                    <option value="">Todos</option>
+                    @foreach (var p in (List<string>)(ViewBag.Periodos ?? new List<string>()))
+                    {
+                        <option value="@p" selected="@(ViewBag.Periodo == p ? "selected" : null)">@p</option>
+                    }
+                </select>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-search me-1"></i>Buscar
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary ms-1">Limpiar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">@Model.Count() notas encontradas</div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Estudiante</th>
+                        <th>Materia</th>
+                        <th>Nota</th>
+                        <th>Período</th>
+                        <th>Fecha</th>
+                        <th>Observaciones</th>
+                        @if (puedeEditar)
+                        {
+                            <th>Acciones</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var n in Model)
+                    {
+                        string notaClase = n.Valor >= 4 ? "nota-badge badge-nota-alta"
+                                         : n.Valor >= 3 ? "nota-badge badge-nota-media"
+                                         : "nota-badge badge-nota-baja";
+                        <tr>
+                            <td class="text-muted">@n.Id</td>
+                            <td>
+                                <strong>@n.Estudiante?.NombreCompleto</strong><br />
+                                <small class="text-muted">@n.Estudiante?.Codigo</small>
+                            </td>
+                            <td>@n.Materia?.Nombre</td>
+                            <td><span class="@notaClase">@n.Valor.ToString("F2")</span></td>
+                            <td>@n.Periodo</td>
+                            <td class="text-muted" style="font-size:13px">
+                                @n.FechaRegistro.ToString("dd/MM/yyyy")
+                            </td>
+                            <td class="text-muted" style="font-size:13px">@n.Observaciones</td>
+                            @if (puedeEditar)
+                            {
+                                <td>
+                                    <a asp-action="Editar" asp-route-id="@n.Id"
+                                       class="btn btn-sm btn-outline-primary me-1">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-action="Eliminar" asp-route-id="@n.Id"
+                                       class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            }
+                        </tr>
+                    }
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="8" class="text-center text-muted py-4">
+                                No se encontraron notas.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,178 @@
+﻿@model Sistema_Academico.Models.ReporteNotasViewModel
+@{
+    ViewData["Title"] = "Informes por parámetros";
+}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="bi bi-funnel me-2 text-primary"></i>Parámetros del Informe
+    </div>
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-3">
+                <label class="form-label">Estudiante</label>
+                <select name="estudianteId" class="form-select">
+                    <option value="">Todos</option>
+                    @foreach (var e in Model.EstudiantesLista)
+                    {
+                        <option value="@e.Id"
+                                selected="@(Model.EstudianteNombre == e.Id.ToString() ? "selected" : null)">
+                            @e.NombreCompleto (@e.Codigo)
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Materia</label>
+                <select name="materiaId" class="form-select">
+                    <option value="">Todas</option>
+                    @foreach (var m in Model.MateriasLista)
+                    {
+                        <option value="@m.Id"
+                                selected="@(ViewBag.MateriaId?.ToString() == m.Id.ToString() ? "selected" : null)">
+                            @m.Nombre
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Período</label>
+                <input name="periodo" value="@Model.Periodo"
+                       class="form-control" placeholder="Ej: 2024-1" />
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Nota mínima</label>
+                <input name="notaMin" value="@Model.NotaMin"
+                       type="number" step="0.1" min="0" max="5"
+                       class="form-control" placeholder="0.0" />
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">Nota máxima</label>
+                <input name="notaMax" value="@Model.NotaMax"
+                       type="number" step="0.1" min="0" max="5"
+                       class="form-control" placeholder="5.0" />
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-search me-1"></i>Generar Informe
+                </button>
+                <a asp-action="Informes" class="btn btn-outline-secondary ms-1">Limpiar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (Model.Notas.Any())
+{
+    var promedio = Model.Notas.Average(n => n.Valor);
+    var aprobados = Model.Notas.Count(n => n.Valor >= 3);
+    var reprobados = Model.Notas.Count(n => n.Valor < 3);
+
+    <div class="row g-3 mb-3">
+        <div class="col-sm-3">
+            <div class="card text-center p-3">
+                <div style="font-size:28px;font-weight:800;color:#1a56db">@Model.Notas.Count</div>
+                <div class="text-muted small">Total notas</div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card text-center p-3">
+                <div style="font-size:28px;font-weight:800;color:#059669">@promedio.ToString("F2")</div>
+                <div class="text-muted small">Promedio</div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card text-center p-3">
+                <div style="font-size:28px;font-weight:800;color:#22c55e">@aprobados</div>
+                <div class="text-muted small">Aprobados (≥ 3.0)</div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card text-center p-3">
+                <div style="font-size:28px;font-weight:800;color:#ef4444">@reprobados</div>
+                <div class="text-muted small">Reprobados</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-table me-2"></i>Sábana de Notas</span>
+            <button class="btn btn-sm btn-outline-success" onclick="exportarCSV()">
+                <i class="bi bi-file-earmark-excel me-1"></i>Exportar CSV
+            </button>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table mb-0" id="tblNotas">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Estudiante</th>
+                            <th>Código</th>
+                            <th>Materia</th>
+                            <th>Docente</th>
+                            <th>Período</th>
+                            <th>Nota</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int i = 1;
+                        }
+                        @foreach (var n in Model.Notas)
+                        {
+                            string estado = n.Valor >= 3 ? "Aprobó" : "Reprobó";
+                            string estadoCls = n.Valor >= 3 ? "text-success fw-bold" : "text-danger fw-bold";
+                            string notaCls = n.Valor >= 4 ? "nota-badge badge-nota-alta"
+                                             : n.Valor >= 3 ? "nota-badge badge-nota-media"
+                                             : "nota-badge badge-nota-baja";
+                            <tr>
+                                <td class="text-muted">@(i++)</td>
+                                <td>@n.Estudiante?.NombreCompleto</td>
+                                <td class="text-muted">@n.Estudiante?.Codigo</td>
+                                <td>@n.Materia?.Nombre</td>
+                                <td class="text-muted">@n.Materia?.Docente?.NombreCompleto</td>
+                                <td>@n.Periodo</td>
+                                <td><span class="@notaCls">@n.Valor.ToString("F2")</span></td>
+                                <td class="@estadoCls">@estado</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+else if (Context.Request.Query.Count > 0)
+{
+    <div class="alert alert-info">
+        <i class="bi bi-info-circle me-2"></i>
+        No se encontraron notas con los parámetros indicados.
+    </div>
+}
+else
+{
+    <div class="text-center text-muted py-5">
+        <i class="bi bi-file-earmark-bar-graph" style="font-size:48px;opacity:.3"></i>
+        <p class="mt-3">Seleccione los parámetros y presione <strong>Generar Informe</strong>.</p>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        function exportarCSV() {
+            const tabla = document.getElementById('tblNotas');
+            if (!tabla) return;
+            const filas = Array.from(tabla.rows).map(r =>
+                Array.from(r.cells).map(c => '"' + c.innerText.trim().replace(/"/g,'""') + '"').join(',')
+            );
+            const blob = new Blob([filas.join('\n')], { type: 'text/csv;charset=utf-8;' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'informe_notas.csv';
+            a.click();
+        }
+    </script>
+}

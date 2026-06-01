@@ -1,0 +1,41 @@
+﻿@model Sistema_Academico.Models.Materia
+@{
+    ViewData["Title"] = "Nueva Materia";
+}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header"><i class="bi bi-book me-2 text-primary"></i>Nueva Materia</div>
+            <div class="card-body p-4">
+                <form asp-action="Crear" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-3">
+                        <label asp-for="Nombre" class="form-label"></label>
+                        <input asp-for="Nombre" class="form-control" />
+                        <span asp-validation-for="Nombre" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Codigo" class="form-label"></label>
+                        <input asp-for="Codigo" class="form-control" />
+                        <span asp-validation-for="Codigo" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Creditos" class="form-label"></label>
+                        <input asp-for="Creditos" class="form-control" type="number" min="1" max="10" />
+                    </div>
+                    <div class="mb-4">
+                        <label asp-for="DocenteId" class="form-label">Docente</label>
+                        <select asp-for="DocenteId" class="form-select" asp-items="ViewBag.DocenteId">
+                            <option value="">— Sin asignar —</option>
+                        </select>
+                    </div>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger small" })
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i>Guardar</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

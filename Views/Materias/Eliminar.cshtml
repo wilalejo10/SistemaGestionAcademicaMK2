@@ -1,0 +1,31 @@
+﻿@model Sistema_Academico.Models.Materia
+@{
+    ViewData["Title"] = "Eliminar Materia";
+}
+<div class="row justify-content-center">
+    <div class="col-lg-5">
+        <div class="card border-danger">
+            <div class="card-header text-danger"><i class="bi bi-exclamation-triangle me-2"></i>Confirmar Eliminación</div>
+            <div class="card-body p-4">
+                <p>¿Eliminar la materia <strong>@Model.Nombre</strong>?</p>
+                <dl class="row small mb-3">
+                    <dt class="col-4">Código</dt>
+                    <dd class="col-8">@Model.Codigo</dd>
+                    <dt class="col-4">Docente</dt>
+                    <dd class="col-8">@Model.Docente?.NombreCompleto</dd>
+                    <dt class="col-4">Notas</dt>
+                    <dd class="col-8">@Model.Notas.Count registradas</dd>
+                </dl>
+                <div class="alert alert-warning py-2 small">Se eliminarán también todas las notas asociadas.</div>
+                <form asp-action="Eliminar" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="Id" />
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-danger"><i class="bi bi-trash me-1"></i>Eliminar</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

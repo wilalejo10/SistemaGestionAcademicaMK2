@@ -1,0 +1,84 @@
+﻿@model Sistema_Academico.Models.RegistroNotaViewModel
+@{
+    ViewData["Title"] = "Registrar Nota";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-plus-circle me-2 text-primary"></i>Registrar Nota
+            </div>
+            <div class="card-body p-4">
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger py-2 small">
+                        @Html.ValidationSummary(false)
+                    </div>
+                }
+                <form asp-action="Registrar" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                Estudiante <span class="text-danger">*</span>
+                            </label>
+                            <select name="EstudianteId" class="form-select" required>
+                                <option value="">— Seleccione —</option>
+                                @foreach (var e in Model.Estudiantes)
+                                {
+                                    <option value="@e.Id">@e.NombreCompleto (@e.Codigo)</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                Materia <span class="text-danger">*</span>
+                            </label>
+                            <select name="MateriaId" class="form-select" required>
+                                <option value="">— Seleccione —</option>
+                                @foreach (var m in Model.Materias)
+                                {
+                                    <option value="@m.Id">@m.Nombre (@m.Codigo)</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Valor" class="form-label">
+                                Nota (0 – 5) <span class="text-danger">*</span>
+                            </label>
+                            <input asp-for="Valor" class="form-control"
+                                   type="number" step="0.01" min="0" max="5"
+                                   placeholder="Ej: 4.5" />
+                            <span asp-validation-for="Valor" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Periodo" class="form-label">
+                                Período <span class="text-danger">*</span>
+                            </label>
+                            <input asp-for="Periodo" class="form-control" placeholder="Ej: 2024-1" />
+                            <span asp-validation-for="Periodo" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Observaciones" class="form-label">Observaciones</label>
+                            <input asp-for="Observaciones" class="form-control" placeholder="Opcional" />
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info mt-4 py-2 small">
+                        <i class="bi bi-info-circle me-1"></i>
+                        Se registrará automáticamente un <strong>movimiento de auditoría</strong>.
+                        Si ya existe una nota para ese estudiante/materia/período use <strong>Editar</strong>.
+                    </div>
+
+                    <div class="d-flex gap-2 mt-3">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-lg me-1"></i>Registrar Nota
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

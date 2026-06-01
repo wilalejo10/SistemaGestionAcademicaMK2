@@ -1,0 +1,194 @@
+﻿@model Sistema_Academico.Models.GraficoViewModel
+@{
+    ViewData["Title"] = "Gráficos por parámetros";
+}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="bi bi-sliders me-2 text-primary"></i>Parámetros del Gráfico
+    </div>
+    <div class="card-body">
+        <form method="get" class="row g-3 align-items-end">
+            <div class="col-md-3">
+                <label class="form-label">Agrupar por</label>
+                <select name="agrupacion" class="form-select">
+                    <option value="materia"
+                            selected="@(ViewBag.Agrupacion == "materia" ? "selected" : null)">
+                        Materia
+                    </option>
+                    <option value="estudiante"
+                            selected="@(ViewBag.Agrupacion == "estudiante" ? "selected" : null)">
+                        Estudiante
+                    </option>
+                    <option value="periodo"
+                            selected="@(ViewBag.Agrupacion == "periodo" ? "selected" : null)">
+                        Período
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Filtrar por Materia</label>
+                <select name="materiaId" class="form-select">
+                    <option value="">Todas</option>
+                    @foreach (var m in Model.MateriasLista)
+                    {
+                        <option value="@m.Id"
+                                selected="@(ViewBag.MateriaId?.ToString() == m.Id.ToString() ? "selected" : null)">
+                            @m.Nombre
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Período</label>
+                <select name="periodo" class="form-select">
+                    <option value="">Todos</option>
+                    @foreach (var p in (List<string>)(ViewBag.Periodos ?? new List<string>()))
+                    {
+                        <option value="@p"
+                                selected="@(Model.Periodo == p ? "selected" : null)">
+                            @p
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-bar-chart me-1"></i>Generar
+                </button>
+                <a asp-action="Graficos" class="btn btn-outline-secondary ms-1">Limpiar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (Model.Datos.Any())
+{
+    <div class="row g-3">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">Promedio por @ViewBag.Agrupacion</div>
+                <div class="card-body">
+                    <canvas id="chartBarras" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">Distribución</div>
+                <div class="card-body">
+                    <canvas id="chartTorta" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">Tabla Resumen</div>
+                <div class="card-body p-0">
+                    <table class="table mb-0">
+                        <thead>
+                            <tr>
+                                <th>@ViewBag.Agrupacion</th>
+                                <th>Promedio</th>
+                                <th>Registros</th>
+                                <th>Nivel</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var d in Model.Datos)
+                            {
+                                string cls = d.Promedio >= 4 ? "nota-badge badge-nota-alta"
+                                             : d.Promedio >= 3 ? "nota-badge badge-nota-media"
+                                             : "nota-badge badge-nota-baja";
+                                string nivel = d.Promedio >= 4 ? "Excelente"
+                                             : d.Promedio >= 3 ? "Aprobado"
+                                             : "Reprobado";
+                                <tr>
+                                    <td>@d.Etiqueta</td>
+                                    <td><span class="@cls">@d.Promedio.ToString("F2")</span></td>
+                                    <td>@d.TotalEstudiantes</td>
+                                    <td>@nivel</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center text-muted py-5">
+        <i class="bi bi-bar-chart" style="font-size:48px;opacity:.3"></i>
+        <p class="mt-3">Seleccione los parámetros y presione <strong>Generar</strong>.</p>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        (function () {
+            const datos = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(
+                            Model.Datos.Select(d => new
+                            {
+                                    etiqueta = d.Etiqueta,
+                                    promedio = d.Promedio,
+                                    total = d.TotalEstudiantes
+                            })
+                    ));
+            if (!datos.length) return;
+
+            const labels    = datos.map(d => d.etiqueta);
+            const promedios = datos.map(d => d.promedio);
+            const colores   = datos.map(d =>
+                d.promedio >= 4 ? '#22c55e' : d.promedio >= 3 ? '#f59e0b' : '#ef4444');
+
+            new Chart(document.getElementById('chartBarras'), {
+                type: 'bar',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: 'Promedio',
+                        data: promedios,
+                        backgroundColor: colores,
+                        borderRadius: 8,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { min: 0, max: 5, grid: { color: '#f1f5f9' } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+
+            const palette = ['#3b82f6','#10b981','#f59e0b','#ef4444',
+                             '#8b5cf6','#ec4899','#06b6d4','#84cc16'];
+
+            new Chart(document.getElementById('chartTorta'), {
+                type: 'doughnut',
+                data: {
+                    labels,
+                    datasets: [{
+                        data: promedios,
+                        backgroundColor: palette.slice(0, datos.length),
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { font: { size: 12 }, padding: 12 }
+                        }
+                    }
+                }
+            });
+        })();
+    </script>
+}

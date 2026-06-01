@@ -73,53 +73,36 @@ namespace Sistema_Academico.Models
             });
 
             // Nota
-            modelBuilder.Entity<Nota>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.Valor).HasColumnType("decimal(5,2)");
-                entity.Property(e => e.Periodo).IsRequired().HasMaxLength(20);
-                entity.HasOne(e => e.Estudiante)
-                      .WithMany(es => es.Notas)
-                      .HasForeignKey(e => e.EstudianteId)
-                      .OnDelete(DeleteBehavior.Cascade);
-                entity.HasOne(e => e.Materia)
-                      .WithMany(m => m.Notas)
-                      .HasForeignKey(e => e.MateriaId)
-                      .OnDelete(DeleteBehavior.Cascade);
-            });
+            modelBuilder.Entity<Nota>()
+                .HasOne(n => n.Estudiante)
+                .WithMany(e => e.Notas)
+                .HasForeignKey(n => n.EstudianteId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Nota>()
+                .HasOne(n => n.Materia)
+                .WithMany(m => m.Notas)
+                .HasForeignKey(n => n.MateriaId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             // MovimientoNota
-            modelBuilder.Entity<MovimientoNota>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.TipoMovimiento).IsRequired().HasMaxLength(20);
-                entity.Property(e => e.ValorAnterior).HasColumnType("decimal(5,2)");
-                entity.Property(e => e.ValorNuevo).HasColumnType("decimal(5,2)");
-                entity.HasOne(e => e.Nota)
-                      .WithMany()
-                      .HasForeignKey(e => e.NotaId)
-                      .OnDelete(DeleteBehavior.SetNull);
-                entity.HasOne(e => e.Estudiante)
-                      .WithMany()
-                      .HasForeignKey(e => e.EstudianteId)
-                      .OnDelete(DeleteBehavior.SetNull);
-                entity.HasOne(e => e.Materia)
-                      .WithMany()
-                      .HasForeignKey(e => e.MateriaId)
-                      .OnDelete(DeleteBehavior.SetNull);
-            });
+            modelBuilder.Entity<MovimientoNota>()
+                .HasOne(mv => mv.Nota)
+                .WithMany()
+                .HasForeignKey(mv => mv.NotaId)
+                .OnDelete(DeleteBehavior.NoAction);
 
-            // Seed data - Admin por defecto
-            modelBuilder.Entity<Usuario>().HasData(new Usuario
-            {
-                Id = 1,
-                NombreUsuario = "admin",
-                Correo = "admin@sistema.edu",
-                // Password: Admin123! (BCrypt hash)
-                Contrasena = "$2a$11$rBnkuqK/hYE9L2Vg3JTQ6OZ.O4pGFtEjUKHlLWz5bX7Xb9K8mR.Ky",
-                Rol = "Admin",
-                FechaCreacion = new DateTime(2024, 1, 1)
-            });
+            modelBuilder.Entity<MovimientoNota>()
+                .HasOne(mv => mv.Estudiante)
+                .WithMany()
+                .HasForeignKey(mv => mv.EstudianteId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<MovimientoNota>()
+                .HasOne(mv => mv.Materia)
+                .WithMany()
+                .HasForeignKey(mv => mv.MateriaId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

@@ -1,0 +1,39 @@
+﻿@model Sistema_Academico.Models.Materia
+@{
+    ViewData["Title"] = "Editar Materia";
+}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header"><i class="bi bi-pencil me-2 text-primary"></i>Editar – @Model.Nombre</div>
+            <div class="card-body p-4">
+                <form asp-action="Editar" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="Id" />
+                    <div class="mb-3">
+                        <label asp-for="Nombre" class="form-label"></label>
+                        <input asp-for="Nombre" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Codigo" class="form-label"></label>
+                        <input asp-for="Codigo" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Creditos" class="form-label"></label>
+                        <input asp-for="Creditos" class="form-control" type="number" min="1" max="10" />
+                    </div>
+                    <div class="mb-4">
+                        <label asp-for="DocenteId" class="form-label">Docente</label>
+                        <select asp-for="DocenteId" class="form-select" asp-items="ViewBag.DocenteId">
+                            <option value="">— Sin asignar —</option>
+                        </select>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i>Guardar cambios</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

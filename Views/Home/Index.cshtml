@@ -1,8 +1,126 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model Sistema_Academico.Models.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row g-3 mb-4">
+    <div class="col-sm-6 col-xl-3">
+        <div class="stat-card" style="background:linear-gradient(135deg,#1a56db,#3b82f6)">
+            <i class="bi bi-people stat-icon"></i>
+            <div class="stat-val">@Model.TotalEstudiantes</div>
+            <div class="stat-lbl">Estudiantes</div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="stat-card" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">
+            <i class="bi bi-person-workspace stat-icon"></i>
+            <div class="stat-val">@Model.TotalDocentes</div>
+            <div class="stat-lbl">Docentes</div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="stat-card" style="background:linear-gradient(135deg,#059669,#34d399)">
+            <i class="bi bi-book stat-icon"></i>
+            <div class="stat-val">@Model.TotalMaterias</div>
+            <div class="stat-lbl">Materias</div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="stat-card" style="background:linear-gradient(135deg,#d97706,#fbbf24)">
+            <i class="bi bi-clipboard-data stat-icon"></i>
+            <div class="stat-val">@Model.PromedioGeneral.ToString("F2")</div>
+            <div class="stat-lbl">Promedio General (@Model.TotalNotas notas)</div>
+        </div>
+    </div>
 </div>
+
+<div class="row g-3">
+    <div class="col-lg-7">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-bar-chart me-2 text-primary"></i>Promedio por Materia</span>
+                <a href="@Url.Action("Graficos", "Notas")" class="btn btn-sm btn-outline-primary">Ver más</a>
+            </div>
+            <div class="card-body">
+                @if (Model.PromediosPorMateria.Any())
+                {
+                    <canvas id="chartMaterias" height="220"></canvas>
+                }
+                else
+                {
+                    <p class="text-center text-muted mt-4">Sin datos registrados aún.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-clock-history me-2 text-primary"></i>Últimos Movimientos</span>
+                <a href="@Url.Action("MovimientoNotas", "Notas")" class="btn btn-sm btn-outline-primary">Ver todos</a>
+            </div>
+            <div class="card-body p-0">
+                @if (!Model.UltimosMovimientos.Any())
+                {
+                    <p class="text-center text-muted p-4">Sin movimientos registrados.</p>
+                }
+                else
+                {
+                    <div class="list-group list-group-flush">
+                        @foreach (var m in Model.UltimosMovimientos)
+                        {
+                            var ico = m.TipoMovimiento == "Insercion" ? "bi-plus-circle-fill text-success"
+                                    : m.TipoMovimiento == "Eliminacion" ? "bi-dash-circle-fill text-danger"
+                                    : "bi-pencil-fill text-warning";
+                            <div class="list-group-item border-0 px-4 py-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <i class="bi @ico"></i>
+                                    <div class="flex-grow-1">
+                                        <div style="font-size:13px;font-weight:600">@m.Estudiante?.NombreCompleto</div>
+                                        <div class="text-muted" style="font-size:12px">
+                                            @m.Materia?.Nombre – @m.TipoMovimiento
+                                            @if (m.ValorNuevo.HasValue)
+                                            {
+                                                <span class="fw-bold ms-1">→ @m.ValorNuevo</span>
+                                            }
+                                        </div>
+                                    </div>
+                                    <span style="font-size:11px;color:#94a3b8">@m.FechaMovimiento.ToString("dd/MM HH:mm")</span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (function(){
+            const data = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(
+                            Model.PromediosPorMateria.Select(d => new { etiqueta = d.Etiqueta, promedio = d.Promedio })
+                    ));
+            if (!data.length) return;
+            new Chart(document.getElementById('chartMaterias'), {
+                type: 'bar',
+                data: {
+                    labels: data.map(d => d.etiqueta),
+                    datasets: [{
+                        label: 'Promedio',
+                        data: data.map(d => d.promedio),
+                        backgroundColor: data.map(d => d.promedio >= 4 ? '#22c55e' : d.promedio >= 3 ? '#f59e0b' : '#ef4444'),
+                        borderRadius: 8, borderSkipped: false
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { min:0, max:5 }, x: { grid:{ display:false } } }
+                }
+            });
+        })();
+    </script>
+}
